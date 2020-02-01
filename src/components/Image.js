@@ -22,7 +22,29 @@ function Image({ className, img }) {
       className="ri-heart-fill favorite"
     ></i>
   );
-  const plusIcon = hover && <i className="ri-add-circle-line cart"></i>;
+
+  const inCart = img => {
+    const inCart = context.cart.some(item => item.id === img.id);
+    if (inCart) {
+      return (
+        <i
+          onClick={() => {
+            context.removeFromCart(img);
+          }}
+          className="ri-shopping-cart-fill cart"
+        ></i>
+      );
+    } else if (hover) {
+      return (
+        <i
+          onClick={() => {
+            context.addToCart(img);
+          }}
+          className="ri-add-circle-line cart"
+        ></i>
+      );
+    }
+  };
 
   return (
     <div
@@ -35,7 +57,7 @@ function Image({ className, img }) {
       }}
     >
       {img.isFavorite ? fillHearIcon : heartIcon}
-      {plusIcon}
+      {inCart(img)}
       <img src={img.url} alt="" className="image-grid" />
     </div>
   );
