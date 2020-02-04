@@ -1,10 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../Context";
+import useHover from "../hooks/useHover";
 
 function Image({ className, img }) {
   const context = useContext(Context);
-  const [hover, setHover] = useState(false);
+  const [hover, hoverExit, hoverEnter] = useHover();
 
   const heartIcon = hover && (
     <i
@@ -50,10 +51,10 @@ function Image({ className, img }) {
     <div
       className={`${className} image-container`}
       onMouseEnter={() => {
-        setHover(true);
+        hoverEnter();
       }}
       onMouseLeave={() => {
-        setHover(false);
+        hoverExit();
       }}
     >
       {img.isFavorite ? fillHearIcon : heartIcon}

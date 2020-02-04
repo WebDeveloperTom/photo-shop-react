@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Context } from "../Context";
+import useHover from "../hooks/useHover";
 
 function CartItem({ item }) {
   const context = useContext(Context);
-  const [hover, setHover] = useState(false);
+  const [hover, hoverExit, hoverEnter] = useHover();
 
   const hoverClass = hover ? "fill" : "line";
 
@@ -11,10 +12,10 @@ function CartItem({ item }) {
     <div className="cart-item">
       <i
         onMouseEnter={() => {
-          setHover(true);
+          hoverEnter();
         }}
         onMouseLeave={() => {
-          setHover(false);
+          hoverExit();
         }}
         onClick={() => {
           context.removeFromCart(item);
