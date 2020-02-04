@@ -30,9 +30,13 @@ function Cart() {
         {total.toLocaleString("en-US", { style: "currency", currency: "USD" })}{" "}
       </p>
       <div className="order-button">
-        <button disabled={order} onClick={placeOrder}>
-          {order ? "Ordering..." : "Place Order"}
-        </button>
+        {cartItems.length > 0 ? (
+          <button disabled={order} onClick={placeOrder}>
+            {order ? "Ordering..." : "Place Order"}
+          </button>
+        ) : (
+          <p>It's empty here...</p>
+        )}
       </div>
     </main>
   );
